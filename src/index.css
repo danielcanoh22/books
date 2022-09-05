@@ -1,6 +1,9 @@
 :root {
   --dark-gray-color: rgb(34, 34, 34);
   --light-gray-color: rgb(112, 112, 112);
+  --main-font-color: rgb(134, 0, 243);
+  --body-bg-color: rgb(243, 235, 253);
+  --header-height: 4.5rem;
 }
 
 *, *::before, *::after {
@@ -15,10 +18,141 @@ html {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  background-color: rgb(239, 225, 255);
+  background-color: var(--body-bg-color);
 }
 
 img {
   max-width: 100%;
   height: auto;
+}
+
+h1 {
+  color: black;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.header {
+  height: var(--header-height);
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon {
+  color: var(--main-font-color);
+  margin-right: 0.5rem;
+}
+
+.btn-menu {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: none;
+}
+
+.btn-menu span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #000;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.btn-menu span::before,
+.btn-menu span::after {
+    content: '';
+    position: absolute;
+    top: 0.5rem;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    transition: transform 0.5s;
+}
+
+.btn-menu span::after {
+  top: auto;
+  bottom: 0.45rem;
+}
+
+.btn-menu.active > span {
+  background-color: transparent;
+}
+
+.btn-menu.active > span::before {
+  transform: rotate(45deg) translate(6px, 5px);
+}
+
+.btn-menu.active > span::after {
+  transform: rotate(-45deg) translate(6px, -5px);
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+
+@media screen and (max-width: 48em) {
+
+}
+
+@media screen and (max-width: 34em) {
+  .btn-menu {
+    display: block;
+  }
+
+  .backdrop.active {
+    display: block;
+  }
+}
+
+.products {
+  text-align: center;
+  padding-top: 3rem;
+}
+
+.products-title {
+  color: var(--dark-gray-color);
+  margin-bottom: 2rem;
+}
+
+.products-cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
