@@ -1,8 +1,11 @@
 :root {
   --dark-gray-color: rgb(34, 34, 34);
   --light-gray-color: rgb(112, 112, 112);
+  --very-light-gray-color: rgb(241, 241, 241);
   --main-font-color: rgb(134, 0, 243);
   --body-bg-color: rgb(243, 235, 253);
+  --success-color: rgb(25, 135, 84);
+  --error-color: rgb(220, 53, 69);
   --header-height: 4.5rem;
 }
 
@@ -14,6 +17,8 @@
 
 html {
   box-sizing: border-box;
+  scroll-padding-top: var(--header-height);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -48,6 +53,7 @@ h1 {
   align-items: center;
   padding: 1rem;
   overflow: hidden;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header .container {
@@ -123,6 +129,7 @@ h1 {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   display: none;
+  z-index: 8;
 }
 
 
@@ -140,14 +147,19 @@ h1 {
   }
 }
 
-.products {
+.section {
   text-align: center;
   padding-top: 3rem;
 }
 
-.products-title {
+.section-title {
+  display: inline-block;
+  padding: 0.2rem;
+  font-size: 2rem;
   color: var(--dark-gray-color);
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  border-top: 2px solid var(--main-font-color);
+  border-bottom: 2px solid var(--main-font-color);
 }
 
 .products-cards {
@@ -155,4 +167,30 @@ h1 {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+}
+
+.blog {
+  background-color: #fff;
+}
+
+.section .container {
+  min-height: 100vh;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+}
+
+#blog .container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  padding-bottom: 18rem;
+}
+
+.footer {
+  padding-top: 10rem;
+  height: 400px;
 }

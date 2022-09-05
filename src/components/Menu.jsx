@@ -63,10 +63,10 @@ export const Menu = () => {
           <a href="#">Inicio</a>
         </MenuItem>
         <MenuItem>
-          <a href="#">Productos</a>
+          <a href="#products">Productos</a>
         </MenuItem>
         <MenuItem>
-          <a href="#">Blog</a>
+          <a href="#blog">Blog</a>
         </MenuItem>
         <MenuItem className="cart">
           <BsCart />

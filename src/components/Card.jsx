@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const CardWrap = styled.article`
   background-color: #fff;
-  width: calc(1280px / 5 - 0.4rem);
+  width: calc(1280px / 5 + 1rem);
   text-align: left;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -39,7 +39,7 @@ const CardPrice = styled.p`
 
 const CardBtn = styled.button`
   width: 100%;
-  background-color: rgb(243, 243, 243);
+  background-color: var(--very-light-gray-color);
   padding: 0.4rem;
   font-size: 0.9rem;
   font-weight: 700;
