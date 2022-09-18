@@ -2,8 +2,10 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const ArticleWrap = styled.article`
+  display: flex;
+  flex-direction: column;
   width: 45%;
-  ${'' /* border: 2px solid red; */}
+  ${"" /* border: 2px solid red; */}
   border-radius: 0.5rem;
   overflow: hidden;
   margin: 0.8rem;
@@ -20,15 +22,19 @@ const ArticleWrap = styled.article`
   }
 `;
 
-const ArticleImg = styled.figure`
-  max-height: 250px;
+const ArticleImg = styled.section`
+  height: 230px;
+  background-image: url(${props => props.image});
+  background-size: cover;
+  background-position: center;
   overflow: hidden;
 `;
 
 const ArticleInfo = styled.section`
+  display: flex;
+  flex-direction: column;
   padding: 0.5rem;
-  ${'' /* text-align: left; */}
-`
+`;
 
 const ArticleTitle = styled.h3`
   text-align: left;
@@ -36,17 +42,16 @@ const ArticleTitle = styled.h3`
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--dark-gray-color);
-`
+`;
 
 const ArticleDescription = styled.p`
   font-size: 0.8rem;
   line-height: 1.8;
   color: var(--light-gray-color);
   text-align: left;
-`
+`;
 
 const ArticleLink = styled.a`
-  display: inline-block;
   margin: 0.5rem auto;
   text-decoration: none;
   color: var(--dark-gray-color);
@@ -54,14 +59,12 @@ const ArticleLink = styled.a`
   &:hover {
     color: var(--main-font-color);
   }
-`
+`;
 
 export const Article = ({ image, title, description }) => {
   return (
     <ArticleWrap>
-      <ArticleImg>
-        <img src={image} />
-      </ArticleImg>
+      <ArticleImg image={image}></ArticleImg>
       <ArticleInfo>
         <ArticleTitle>{title}</ArticleTitle>
         <ArticleDescription>{description}</ArticleDescription>

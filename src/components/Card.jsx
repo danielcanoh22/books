@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { BsCart } from "react-icons/bs";
+import { BsFillCartPlusFill } from "react-icons/bs";
 import styled from "styled-components";
 
 const CardWrap = styled.article`
@@ -17,6 +17,7 @@ const CardImg = styled.figure`
 `;
 
 const CardInfo = styled.section`
+  position: relative;
   padding: 0.5rem;
 `;
 
@@ -38,28 +39,30 @@ const CardPrice = styled.p`
 `;
 
 const CardBtn = styled.button`
-  width: 100%;
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
   background-color: var(--very-light-gray-color);
-  padding: 0.4rem;
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-size: 1.5rem;
+  border-radius: 50%;
   border: none;
   cursor: pointer;
-  transition: background-color 0.5s;
+  transition: background-color 0.5s, color 0.5s;
 
   &:hover {
     background-color: var(--main-font-color);
     color: #fff;
   }
-
-  span {
-    margin-right: 0.5rem;
-  }
 `;
 
 export const Card = ({ image, title, author, price }) => {
   return (
-    <CardWrap>
+    <CardWrap className="card">
       <CardImg>
         <img src={image}></img>
       </CardImg>
@@ -67,13 +70,10 @@ export const Card = ({ image, title, author, price }) => {
         <CardTitle>{title}</CardTitle>
         <CardAuthor>{author}</CardAuthor>
         <CardPrice>$ {price}</CardPrice>
+        <CardBtn>
+          <BsFillCartPlusFill />
+        </CardBtn>
       </CardInfo>
-      <CardBtn>
-        <span>
-          <BsCart />
-        </span>
-        Agregar al carrito
-      </CardBtn>
     </CardWrap>
   );
 };

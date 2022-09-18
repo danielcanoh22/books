@@ -1,92 +1,83 @@
-import { Header } from "./Header";
-import { Slider } from "./Slider";
-import { Card } from "./Card";
-import { Article } from "./Article";
-import { Form } from "./Form";
+import React, { useState, useEffect } from "react";
+import {
+  collection,
+  getDocs,
+  getDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import Swal from "sweetalert2";
+import { db } from "../firebaseConfig/firebase";
 
-import portada1 from "../assets/images/portada1.jpg";
-import portada2 from "../assets/images/portada2.jpg";
-import portada3 from "../assets/images/portada3.png";
-import article from "../assets/images/article.jpg";
-
-const closeMenu = function () {
-  const btnMenu = document.querySelector(".btn-menu");
-  const menu = document.querySelector(".menu");
-  const backdrop = document.querySelector(".backdrop");
-
-  btnMenu.classList.toggle("active");
-  menu.classList.toggle("active");
-  backdrop.classList.toggle("active");
-};
+import { handleToggleMenu } from "../components/Header";
+import { BsSearch } from "react-icons/bs";
+import { Header } from "../components/Header";
+import { Slider } from "../components/Slider";
+import { Card } from "../components/Card";
+import { Article } from "../components/Article";
+import { Form } from "../components/Form";
+import { books, articles } from "../data";
 
 export const Layout = () => {
+  // 1. Configurar hooks
+  const [products, setProducts] = useState(books);
+
+  // 2. Referenciar a la DB firestore
+  const productsCollection = collection(db, "products");
+
+  // 3. Mostrar los docs
+  const getProducts = async () => {
+    const data = await getDocs(productsCollection);
+    setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+
+  // 6. Usar useEffect
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
     <>
-      <header className="header">
-        <Header />
-      </header>
-      <div className="backdrop" onClick={closeMenu}></div>
+      <Header />
+      <div className="backdrop" onClick={handleToggleMenu}></div>
       <main className="main">
-        <section>
+        <section id="hero">
           <Slider />
         </section>
         <section className="section" id="products">
           <div className="container">
             <h2 className="section-title">Productos Disponibles</h2>
+            <form className="form-search">
+              <div>
+                <BsSearch />
+              </div>
+              <input type="search" placeholder="Buscar libro..."></input>
+            </form>
             <section className="products-cards">
-              <Card
-                image={portada1}
-                title={"El Psicoanalista"}
-                author={"John Katzenbach"}
-                price={35000}
-              />
-              <Card
-                image={portada2}
-                title={"El retrato de Dorian Gray"}
-                author={"Oscar Wilde"}
-                price={27000}
-              />
-              <Card
-                image={portada3}
-                title={"Escrito en el Agua"}
-                author={"Paula Hawkins"}
-                price={40000}
-              />
+              {products.map((book) => (
+                <Card
+                  key={book.id}
+                  image={book.image}
+                  title={book.title}
+                  author={book.author}
+                  price={Number(book.price)}
+                />
+              ))}
             </section>
           </div>
         </section>
         <section className="section blog" id="blog">
-            <h2 className="section-title">Blog</h2>
+          <h2 className="section-title">Blog</h2>
           <div className="container">
-            <Article
-              image={article}
-              title={"Lorem ipsum dolor"}
-              description={
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi sapiente consequuntur suscipit quisquam."
-              }
-            />
-            <Article
-              image={article}
-              title={"Lorem ipsum dolor"}
-              description={
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi sapiente consequuntur suscipit quisquam."
-              }
-            />
-            <Article
-              image={article}
-              title={"Lorem ipsum dolor"}
-              description={
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi sapiente consequuntur suscipit quisquam."
-              }
-            />
-            <Article
-              image={article}
-              title={"Lorem ipsum dolor"}
-              description={
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi sapiente consequuntur suscipit quisquam."
-              }
-            />
-          <Form/>
+            {articles.map((article) => (
+              <Article
+                key={article.title}
+                image={article.image}
+                title={article.title}
+                description={article.description}
+              />
+            ))}
+            <Form />
           </div>
         </section>
       </main>

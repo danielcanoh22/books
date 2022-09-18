@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { BsCart } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const MenuWrap = styled.nav`
   @media screen and (max-width: 34em) {
@@ -60,13 +61,16 @@ export const Menu = () => {
     <MenuWrap className="menu">
       <MenuItems>
         <MenuItem>
-          <a href="#">Inicio</a>
+          <a href="#hero" className="nav-link">Inicio</a>
         </MenuItem>
         <MenuItem>
-          <a href="#products">Productos</a>
+          <a href="#products" className="nav-link">Productos</a>
         </MenuItem>
         <MenuItem>
-          <a href="#blog">Blog</a>
+          <a href="#blog" className="nav-link">Blog</a>
+        </MenuItem>
+        <MenuItem>
+          <Link to='/crud' className="nav-link">Admin</Link>
         </MenuItem>
         <MenuItem className="cart">
           <BsCart />

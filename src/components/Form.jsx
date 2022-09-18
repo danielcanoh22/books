@@ -36,7 +36,7 @@ const FormInput = styled.input`
   }
 
   &:invalid {
-    border-color: var(--error-color);
+    border-color: var(--danger-color);
   }
 `;
 
@@ -62,7 +62,6 @@ export const Form = () => {
       <h2>Suscríbete a nuestro newsletter</h2>
       <p>Entérate de las últimas novedades</p>
       <FormContent>
-        {/* <FormLabel>Correo Electrónico</FormLabel> */}
         <FormInput type="email" placeholder="Correo electrónico" required />
         <FormBtn>SUSCRIBIRME</FormBtn>
       </FormContent>
