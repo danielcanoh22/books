@@ -24,6 +24,12 @@ const CrudWrap = styled.article`
   margin: 0 auto;
   padding: 1rem;
   background-color: #fff;
+
+  .links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const CrudTable = styled.table`
@@ -66,7 +72,7 @@ const CrudBtn = styled.button`
   align-items: center;
   width: 40px;
   height: 40px;
-  ${'' /* margin: 0 auto; */}
+  ${"" /* margin: 0 auto; */}
   background-color: var(--danger-color);
   color: #fff;
   font-size: 1.5rem;
@@ -86,6 +92,7 @@ const CreateLink = styled(Link)`
   color: #fff;
   padding: 0.4rem 2rem;
   text-decoration: none;
+  border-radius: 0.4rem;
 
   span {
     font-size: 1.5rem;
@@ -94,6 +101,23 @@ const CreateLink = styled(Link)`
 
   &:hover {
     background-color: var(--main-color-hover);
+  }
+`;
+
+const BackLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  background-color: var(--very-light-gray-color);
+  color: #000;
+  padding: 0.4rem 2rem;
+  text-decoration: none;
+  margin-right: 0.5rem;
+  border-radius: 0.4rem;
+
+  &:hover {
+    background-color: var(--light-gray-color);
+    color: #fff;
   }
 `;
 
@@ -166,11 +190,14 @@ export const CrudShow = () => {
 
   return (
     <CrudWrap>
-      <CreateLink to="/create" className="btn btn-secondary mt-2 mb-2">
-        <span>+</span>
-        Agregar Producto
-      </CreateLink>
-      <CrudTable className="table table-dark table-hover">
+      <div className="links">
+        <BackLink to="/">Inicio</BackLink>
+        <CreateLink to="/create">
+          <span>+</span>
+          Agregar Producto
+        </CreateLink>
+      </div>
+      <CrudTable>
         <thead>
           <CrudRow>
             <CrudHeader>Título</CrudHeader>
@@ -186,17 +213,11 @@ export const CrudShow = () => {
               <CrudColumn>{product.author}</CrudColumn>
               <CrudColumn>{product.price}</CrudColumn>
               <CrudColumn className="actions">
-                <EditLink
-                  to={`/edit/${product.id}`}
-                  className="btn btn-light"
-                >
-                  <BsFillPencilFill/>
+                <EditLink to={`/edit/${product.id}`}>
+                  <BsFillPencilFill />
                 </EditLink>
 
-                <CrudBtn
-                  onClick={() => confirmDelete(product.id)}
-                  className="btn btn-danger"
-                >
+                <CrudBtn onClick={() => confirmDelete(product.id)}>
                   <BsFillTrashFill />
                 </CrudBtn>
               </CrudColumn>

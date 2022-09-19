@@ -20,7 +20,7 @@ import { books, articles } from "../data";
 
 export const Layout = () => {
   // 1. Configurar hooks
-  const [products, setProducts] = useState(books);
+  const [products, setProducts] = useState([]);
 
   // 2. Referenciar a la DB firestore
   const productsCollection = collection(db, "products");
@@ -47,12 +47,12 @@ export const Layout = () => {
         <section className="section" id="products">
           <div className="container">
             <h2 className="section-title">Productos Disponibles</h2>
-            <form className="form-search">
+            {/* <form className="form-search">
               <div>
                 <BsSearch />
               </div>
               <input type="search" placeholder="Buscar libro..."></input>
-            </form>
+            </form> */}
             <section className="products-cards">
               {products.map((book) => (
                 <Card
