@@ -87,5 +87,6 @@ Card.propTypes = {
 };
 
 Card.defaultProps = {
-  image: "./src/assets/images/portada-default.png",
+  image:
+    "https://firebasestorage.googleapis.com/v0/b/books-tecnicas.appspot.com/o/portadas%2Fportada-default.png?alt=media&token=77853867-e7b5-4e7e-92b6-e3ecb27c0b0a",
 };

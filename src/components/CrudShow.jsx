@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import Swal from "sweetalert2";
 import { db } from "../firebaseConfig/firebase";
-import { books } from "../data";
+//import { books } from "../data";
 
 const CrudWrap = styled.article`
   display: flex;

@@ -109,7 +109,7 @@ export const CrudCreate = () => {
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const navigate = useNavigate();
-  let urlImage = "./src/assets/images/portada-default.png";
+  let urlImage = "https://firebasestorage.googleapis.com/v0/b/books-tecnicas.appspot.com/o/portadas%2Fportada-default.png?alt=media&token=77853867-e7b5-4e7e-92b6-e3ecb27c0b0a";
 
   const productsCollection = collection(db, "products");
 

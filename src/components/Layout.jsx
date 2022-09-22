@@ -11,17 +11,12 @@ import { db } from "../firebaseConfig/firebase";
 
 import { handleToggleMenu } from "../components/Header";
 import { BsSearch } from "react-icons/bs";
-// import { Header } from "../components/Header";
-import { Header } from "./Header"
-// import { Slider } from "../components/Slider";
-import {Slider} from "./Slider"
-// import { Card } from "../components/Card";
+import { Header } from "./Header";
+import { Slider } from "./Slider";
 import { Card } from "./Card";
-// import { Article } from "../components/Article";
-import {Article} from "./Article"
-// import { Form } from "../components/Form";
+import { Article } from "./Article";
 import { Form } from "./Form";
-import { books, articles } from "../data";
+import { articles } from "../data";
 
 export const Layout = () => {
   // 1. Configurar hooks

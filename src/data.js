@@ -1,12 +1,12 @@
-import frontpage1 from "./assets/images/portada1.jpg";
-import frontpage2 from "./assets/images/portada2.jpg";
-import frontpage3 from "./assets/images/portada3.png";
+//import frontpage1 from "./assets/images/portada1.jpg";
+//import frontpage2 from "./assets/images/portada2.jpg";
+//import frontpage3 from "./assets/images/portada3.png";
 
 import article1 from "./assets/images/article.jpg";
 import article2 from "./assets/images/article2.jpg";
 import article3 from "./assets/images/article3.jpg";
 import article4 from "./assets/images/article4.jpg";
-
+/*
 export const books = [
   {
     id: 1,
@@ -30,7 +30,7 @@ export const books = [
     price: 40000,
   },
 ];
-
+*/
 export const articles = [
   {
     image: article1,
