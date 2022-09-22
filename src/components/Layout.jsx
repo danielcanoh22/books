@@ -11,11 +11,16 @@ import { db } from "../firebaseConfig/firebase";
 
 import { handleToggleMenu } from "../components/Header";
 import { BsSearch } from "react-icons/bs";
-import { Header } from "../components/Header";
-import { Slider } from "../components/Slider";
-import { Card } from "../components/Card";
-import { Article } from "../components/Article";
-import { Form } from "../components/Form";
+// import { Header } from "../components/Header";
+import { Header } from "./Header"
+// import { Slider } from "../components/Slider";
+import {Slider} from "./Slider"
+// import { Card } from "../components/Card";
+import { Card } from "./Card";
+// import { Article } from "../components/Article";
+import {Article} from "./Article"
+// import { Form } from "../components/Form";
+import { Form } from "./Form";
 import { books, articles } from "../data";
 
 export const Layout = () => {
