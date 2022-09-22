@@ -80,6 +80,7 @@ const BackLink = styled(Link)`
   text-decoration: none;
   margin-right: 0.5rem;
   border-radius: 0.4rem;
+  font-size: 1.1rem;
 
   &:hover {
     background-color: var(--light-gray-color);
@@ -106,57 +107,35 @@ export const CrudCreate = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [price, setPrice] = useState(0);
-  const [percent, setPercent] = useState(0);
   const [image, setImage] = useState("");
   const navigate = useNavigate();
-  let urlImage;
-  
+  let urlImage = "./src/assets/images/portada-default.png";
+
   const productsCollection = collection(db, "products");
-  
+
   const addProduct = async (e) => {
     e.preventDefault();
-    
-    // uploadImage();
-    // let urlImage;
-    // try {
-    //   const newRef = ref(storage, `/portadas/${image.name}`);
-    //   uploadBytesResumable(newRef, image);
-    //   // console.log('URL: ', getDownloadURL(newRef));
-    //   //  setRef(newRef);
-    //   //  await newRef.put(image);
-    //   urlImage = await getDownloadURL(newRef);
-    //   console.log(urlImage);
 
-    //   if(urlImage) {
-        
-    //   }
-    //   // console.log("URL: ", urlImage);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      if (image.name) {
+        const newRef = ref(storage, `/portadas/${image.name}`);
+        const snap = await uploadBytesResumable(newRef, image);
+
+        if (snap.state === "success") {
+          urlImage = await getDownloadURL(snap.ref);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
 
     await addDoc(productsCollection, {
       title: title,
       author: author,
       price: price,
-      // image: urlImage,
+      image: urlImage,
     });
     navigate("/");
-  };
-
-  const uploadImage = async () => {
-    try {
-      const newRef = ref(storage, `/portadas/${image.name}`);
-      const uploadTask = uploadBytesResumable(newRef, image);
-      // console.log('URL: ', getDownloadURL(newRef));
-      //  setRef(newRef);
-      //  await newRef.put(image);
-      urlImage = await getDownloadURL(uploadTask.snapshot.ref);
-      console.log(urlImage);
-      // console.log("URL: ", urlImage);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (

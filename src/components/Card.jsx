@@ -5,6 +5,7 @@ import styled from "styled-components";
 const CardWrap = styled.article`
   background-color: #fff;
   width: calc(1280px / 5 + 1rem);
+  min-height: 440px;
   text-align: left;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -12,7 +13,7 @@ const CardWrap = styled.article`
 `;
 
 const CardImg = styled.figure`
-  max-height: 350px;
+  height: 350px;
   overflow: hidden;
 `;
 

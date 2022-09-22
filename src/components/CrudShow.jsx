@@ -33,7 +33,6 @@ const CrudWrap = styled.article`
 `;
 
 const CrudTable = styled.table`
-  ${"" /* border: 2px solid red; */}
   width: 100%;
   max-width: 800px;
   margin: 1rem auto;
@@ -72,7 +71,6 @@ const CrudBtn = styled.button`
   align-items: center;
   width: 40px;
   height: 40px;
-  ${"" /* margin: 0 auto; */}
   background-color: var(--danger-color);
   color: #fff;
   font-size: 1.5rem;

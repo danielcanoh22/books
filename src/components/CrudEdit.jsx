@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
-import { getDoc, updateDoc, doc } from "firebase/firestore";
-import { db } from "../firebaseConfig/firebase";
+import { getDoc, updateDoc, doc, deleteDoc } from "firebase/firestore";
+import { db, storage } from "../firebaseConfig/firebase";
 import { Link } from "react-router-dom";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const EditWrap = styled.article`
   display: flex;
@@ -53,7 +54,6 @@ const FormInput = styled.input`
   }
 
   &[type="file"]::file-selector-button {
-    ${"" /* width: 12rem; */}
     background-color: var(--main-font-color);
     color: #fff;
     padding: 0.5rem;
@@ -79,6 +79,7 @@ const BackLink = styled(Link)`
   text-decoration: none;
   margin-right: 0.5rem;
   border-radius: 0.4rem;
+  font-size: 1.1rem;
 
   &:hover {
     background-color: var(--light-gray-color);
@@ -105,14 +106,36 @@ export const CrudEdit = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [price, setPrice] = useState(0);
+  const [image, setImage] = useState("");
+  let urlImage;
 
   const navigate = useNavigate();
   const { id } = useParams();
 
   const updateProduct = async (e) => {
     e.preventDefault();
+
+    try {
+      if (image.name) {
+        const newRef = ref(storage, `/portadas/${image.name}`);
+        const snap = await uploadBytesResumable(newRef, image);
+  
+        if (snap.state === "success") {
+          urlImage = await getDownloadURL(snap.ref);
+        }
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
+
     const product = doc(db, "products", id);
-    const data = { title: title, author: author, price: price };
+    const data = {
+      title: title,
+      author: author,
+      price: price,
+      image: urlImage || image,
+    };
     await updateDoc(product, data);
     navigate("/");
   };
@@ -123,6 +146,7 @@ export const CrudEdit = () => {
       setTitle(product.data().title);
       setAuthor(product.data().author);
       setPrice(product.data().price);
+      setImage(product.data().image);
     }
   };
 
@@ -153,7 +177,10 @@ export const CrudEdit = () => {
           type="number"
         ></FormInput>
         <FormLabel>Portada</FormLabel>
-        <FormInput type="file"></FormInput>
+        <FormInput
+          onChange={(e) => setImage(e.target.files[0])}
+          type="file"
+        ></FormInput>
         <div className="btns">
           <BackLink to="/crud">Regresar</BackLink>
           <FormBtn type="submit">Actualizar</FormBtn>
