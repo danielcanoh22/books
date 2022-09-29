@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
+import { CrudWrap, BackLink, EditLink, CreateLink, CrudTable, CrudRow, CrudHeader, CrudColumn, CrudBtn } from "./styles/Crud.styled";
 
 import { Link } from "react-router-dom";
 import {
@@ -12,131 +12,6 @@ import {
 } from "firebase/firestore";
 import Swal from "sweetalert2";
 import { db } from "../firebaseConfig/firebase";
-//import { books } from "../data";
-
-const CrudWrap = styled.article`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  max-width: 1200px;
-  height: 100vh;
-  margin: 0 auto;
-  padding: 1rem;
-  background-color: #fff;
-
-  .links {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-`;
-
-const CrudTable = styled.table`
-  width: 100%;
-  max-width: 800px;
-  margin: 1rem auto;
-  text-align: center;
-  border-collapse: collapse;
-`;
-
-const CrudRow = styled.tr`
-  background-color: var(--row-bg-color);
-  color: #fff;
-  padding: 1rem;
-  border-bottom: 1px solid #535353;
-
-  &.row:hover {
-    background-color: var(--row-bg-color-hover);
-  }
-`;
-
-const CrudColumn = styled.td`
-  padding: 0.8rem;
-
-  &.actions {
-    display: flex;
-    justify-content: center;
-  }
-`;
-
-const CrudHeader = styled.th`
-  padding: 0.8rem;
-  font-weightHeader
-`;
-
-const CrudBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  background-color: var(--danger-color);
-  color: #fff;
-  font-size: 1.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--danger-color-hover);
-  }
-`;
-
-const CreateLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  background-color: var(--main-font-color);
-  color: #fff;
-  padding: 0.4rem 2rem;
-  text-decoration: none;
-  border-radius: 0.4rem;
-
-  span {
-    font-size: 1.5rem;
-    margin-right: 0.3rem;
-  }
-
-  &:hover {
-    background-color: var(--main-color-hover);
-  }
-`;
-
-const BackLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  height: 100%;
-  background-color: var(--very-light-gray-color);
-  color: #000;
-  padding: 0.4rem 2rem;
-  text-decoration: none;
-  margin-right: 0.5rem;
-  border-radius: 0.4rem;
-
-  &:hover {
-    background-color: var(--light-gray-color);
-    color: #fff;
-  }
-`;
-
-const EditLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background-color: var(--very-light-gray-color);
-  color: var(--dark-gray-color);
-  font-size: 1.5rem;
-  text-decoration: none;
-  border-radius: 0.5rem;
-  margin-right: 0.3rem;
-
-  &:hover {
-    background-color: var(--light-gray-color);
-    color: #fff;
-  }
-`;
 
 export const CrudShow = () => {
   // 1. Configurar hooks

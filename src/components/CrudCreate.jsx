@@ -1,107 +1,10 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import { CreateWrap, FormContainer, FormLabel, FormInput, BackLink, FormBtn } from "./styles/Crud.styled";
+
 import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db, storage } from "../firebaseConfig/firebase";
-import { Link } from "react-router-dom";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-
-const CreateWrap = styled.article`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fff;
-  max-width: 1200px;
-  height: 100vh;
-  padding: 1rem;
-  margin: 0 auto;
-
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .btns {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-`;
-
-const FormContainer = styled.form`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  width: 100%;
-  max-width: 800px;
-`;
-
-const FormLabel = styled.label`
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-`;
-
-const FormInput = styled.input`
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid rgb(225, 225, 225);
-  border-radius: 0.4rem;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-
-  &[type="file"] {
-    padding: 0.1rem;
-  }
-
-  &[type="file"]::file-selector-button {
-    ${"" /* width: 12rem; */}
-    background-color: var(--main-font-color);
-    color: #fff;
-    padding: 0.5rem;
-    margin-right: 1rem;
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 0.4rem;
-
-    &:hover {
-      background-color: var(--main-color-hover);
-    }
-  }
-`;
-
-const BackLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  height: 100%;
-  background-color: var(--very-light-gray-color);
-  color: #000;
-  padding: 0.4rem 2rem;
-  text-decoration: none;
-  margin-right: 0.5rem;
-  border-radius: 0.4rem;
-  font-size: 1.1rem;
-
-  &:hover {
-    background-color: var(--light-gray-color);
-    color: #fff;
-  }
-`;
-
-const FormBtn = styled.button`
-  width: 10rem;
-  background-color: var(--main-font-color);
-  color: #fff;
-  padding: 0.4rem 2rem;
-  border: none;
-  font-size: 1.1rem;
-  cursor: pointer;
-  border-radius: 0.4rem;
-
-  &:hover {
-    background-color: var(--main-color-hover);
-  }
-`;
 
 export const CrudCreate = () => {
   const [title, setTitle] = useState("");
