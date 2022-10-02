@@ -1,2 +1,3 @@
-# :rocket: Aplicación Web - Técnicas de Programación :rocket:
+# Aplicación Web - Técnicas de Programación
+
 ## Daniel Cano Hernández

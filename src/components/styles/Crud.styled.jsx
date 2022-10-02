@@ -8,7 +8,7 @@ export const CrudWrap = styled.article`
   justify-content: flex-start;
   align-items: center;
   max-width: 1200px;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 1rem;
   background-color: #fff;

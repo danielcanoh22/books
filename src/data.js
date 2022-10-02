@@ -6,31 +6,9 @@ import article1 from "./assets/images/article.jpg";
 import article2 from "./assets/images/article2.jpg";
 import article3 from "./assets/images/article3.jpg";
 import article4 from "./assets/images/article4.jpg";
-/*
-export const books = [
-  {
-    id: 1,
-    image: frontpage1,
-    title: "El Psicoanalista",
-    author: "John Katzenbach",
-    price: 35000,
-  },
-  {
-    id: 2,
-    image: frontpage2,
-    title: "El Retrato de Dorian Gray",
-    author: "Oscar Wilde",
-    price: 27000,
-  },
-  {
-    id: 3,
-    image: frontpage3,
-    title: "Escrito en el Agua",
-    author: "Paula Hawkins",
-    price: 40000,
-  },
-];
-*/
+
+export const books = [];
+
 export const articles = [
   {
     image: article1,

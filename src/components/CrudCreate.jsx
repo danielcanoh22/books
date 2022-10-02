@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db, storage } from "../firebaseConfig/firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { books } from "../data";
 
 export const CrudCreate = () => {
   const [title, setTitle] = useState("");

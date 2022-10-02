@@ -1,5 +1,10 @@
 import { FormWrap, FormContent, FormInput, FormBtn } from "./styles/Form.styled";
 
+/**
+ * Este componente se encarga de mostrar el formulario de suscripción ubicado al final de la página.
+ * 
+ * @component
+ */
 export const Form = () => {
   return (
     <FormWrap>

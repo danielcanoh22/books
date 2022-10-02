@@ -1,6 +1,7 @@
 import { BsBookHalf } from "react-icons/bs";
 import { HeaderWrap, HeaderLogo, HeaderMenuBtn } from "./styles/Header.styled";
 import { Menu } from "./Menu";
+import { Slider } from "./Slider";
 
 export const handleToggleMenu = function () {
   const btnMenu = document.querySelector(".btn-menu");

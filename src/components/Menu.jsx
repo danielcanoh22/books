@@ -2,7 +2,7 @@ import { MenuWrap, MenuItems, MenuItem } from "./styles/Header.styled";
 import { BsCart } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-const smoothScrollTo = function(e) {
+const handleSmoothScrollTo = function(e) {
   e.preventDefault();
 
   if (e.target.classList.contains('nav-link')) {
@@ -13,7 +13,7 @@ const smoothScrollTo = function(e) {
 
 export const Menu = () => {
   return (
-    <MenuWrap className="menu" onClick={smoothScrollTo}>
+    <MenuWrap className="menu" onClick={handleSmoothScrollTo}>
       <MenuItems>
         <MenuItem>
           <a href="#hero" className="nav-link">Inicio</a>
@@ -28,7 +28,9 @@ export const Menu = () => {
           <Link to='/crud'>Admin</Link>
         </MenuItem>
         <MenuItem className="cart">
+          <Link to='/cart'>
           <BsCart />
+          </Link>
         </MenuItem>
       </MenuItems>
     </MenuWrap>

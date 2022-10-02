@@ -48,6 +48,7 @@ export const CardBtn = styled.button`
   height: 40px;
   background-color: var(--very-light-gray-color);
   font-size: 1.5rem;
+  color: var(--light-gray-color);
   border-radius: 50%;
   border: none;
   cursor: pointer;

@@ -17,6 +17,7 @@ import { Card } from "./Card";
 import { Article } from "./Article";
 import { Form } from "./Form";
 import { articles } from "../data";
+import { Footer } from "./Footer";
 
 export const Layout = () => {
   // 1. Configurar hooks
@@ -54,15 +55,17 @@ export const Layout = () => {
               <input type="search" placeholder="Buscar libro..."></input>
             </form> */}
             <section className="products-cards">
-              {products.map((book) => (
+              {products.length > 0 ?
+                products.map((book) => (
                 <Card
                   key={book.id}
                   image={book.image}
                   title={book.title}
                   author={book.author}
                   price={Number(book.price)}
+                  id={book.id}
                 />
-              ))}
+              )) : <h3>No hay productos disponibles 😢</h3>}
             </section>
           </div>
         </section>
@@ -82,7 +85,7 @@ export const Layout = () => {
         </section>
       </main>
       <footer className="footer">
-        <p>FOOTER</p>
+        <Footer/>
       </footer>
     </>
   );

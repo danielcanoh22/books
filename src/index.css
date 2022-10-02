@@ -126,6 +126,13 @@ h1 {
 }
 
 .footer {
-  padding-top: 10rem;
-  height: 400px;
+  text-align: center;
+  padding: 12rem 1rem 2rem;
+}
+
+.cart .container {
+  padding: 1rem;
+  min-height: 100vh;
+  background-color: #fff;
+  text-align: center;
 }
