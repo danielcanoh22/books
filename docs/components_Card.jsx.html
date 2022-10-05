@@ -1,0 +1,221 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> components/Card.jsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Books - Components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="App.html">App</a></li><li><a href="Article.html">Article</a></li><li><a href="Card.html">Card</a></li><li><a href="Cart.html">Cart</a></li><li><a href="CartCheckout.html">CartCheckout</a></li><li><a href="CartProduct.html">CartProduct</a></li><li><a href="CrudCreate.html">CrudCreate</a></li><li><a href="CrudEdit.html">CrudEdit</a></li><li><a href="CrudShow.html">CrudShow</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Form.html">Form</a></li><li><a href="Header.html">Header</a></li><li><a href="Layout.html">Layout</a></li><li><a href="Menu.html">Menu</a></li><li><a href="Slider.html">Slider</a></li></ul><h3>Global</h3><ul><li><a href="global.html#handleSmoothScrollTo">handleSmoothScrollTo</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>components/Card.jsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import PropTypes from "prop-types";
+
+import { BsFillCartPlusFill } from "react-icons/bs";
+import {
+  CardWrap,
+  CardImg,
+  CardInfo,
+  CardTitle,
+  CardAuthor,
+  CardPrice,
+  CardBtn,
+} from "./styles/Card.styled";
+
+/**
+ * Esta función se encarga de almacenar en el LocalStorage del navegador un arreglo de productos.
+ */
+export const setLocalStorage = function (products) {
+  localStorage.setItem("products", JSON.stringify(products));
+};
+
+/**
+ * Esta función se encarga de retornar los datos almacenados en el LocalStorage del navegador.
+ */
+export const getLocalStorage = function () {
+  const data = JSON.parse(localStorage.getItem("products"));
+  return data;
+};
+
+const DEFAULT_IMAGE =
+  "https://firebasestorage.googleapis.com/v0/b/books-tecnicas.appspot.com/o/portadas%2Fportada-default.png?alt=media&amp;token=77853867-e7b5-4e7e-92b6-e3ecb27c0b0a";
+
+/**
+ * Este componente muestra una tarjeta que contiene la información de cada producto.
+ *
+ * @component
+ */
+export const Card = ({ id, image = DEFAULT_IMAGE, title, author, price }) => {
+  /**
+   * Esta función se encarga de tomar la información de cada producto, guardarla en un objeto y agregar dicho objeto a un arreglo de productos. Posteriormente, dicho arreglo se almacena en el LocalStorage del navegador.
+   */
+  const handleAddToCart = function (e) {
+    const products = getLocalStorage() || [];
+    const currentProduct = e.target.closest(".card");
+
+    const book = {
+      id: currentProduct.dataset.id,
+      title: currentProduct.querySelector(".card-title").textContent,
+      author: currentProduct.querySelector(".card-author").textContent,
+      price: currentProduct.querySelector(".card-price").textContent,
+      image: currentProduct.querySelector(".card-img").getAttribute("src"),
+      amount: 1,
+    };
+
+    const product = products.find((prod) => prod.id === book.id);
+
+    if (!product) products.push(book);
+
+    setLocalStorage(products);
+  };
+
+  return (
+    &lt;CardWrap className="card" data-id={id}>
+      &lt;CardImg>
+        &lt;img src={image} className="card-img">&lt;/img>
+      &lt;/CardImg>
+      &lt;CardInfo>
+        &lt;CardTitle className="card-title">{title}&lt;/CardTitle>
+        &lt;CardAuthor className="card-author">{author}&lt;/CardAuthor>
+        &lt;CardPrice className="card-price">$ {price}&lt;/CardPrice>
+        &lt;CardBtn onClick={handleAddToCart}>
+          &lt;BsFillCartPlusFill />
+        &lt;/CardBtn>
+      &lt;/CardInfo>
+    &lt;/CardWrap>
+  );
+};
+
+Card.propTypes = {
+  /**
+   * ID único de cada producto generado por Firebase.
+   */
+  id: PropTypes.string,
+  /**
+   * Portada del libro. En caso de no agregarse una portada, se utilizará una imagen por defecto.
+   */
+  image: PropTypes.string,
+  /**
+   * Título del libro.
+   */
+  title: PropTypes.string.isRequired,
+  /**
+   * Autor del libro.
+   */
+  author: PropTypes.string.isRequired,
+  /**
+   * Precio del libro.
+   */
+  price: PropTypes.number.isRequired,
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

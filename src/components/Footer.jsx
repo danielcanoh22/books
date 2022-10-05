@@ -7,6 +7,11 @@ import {
   HeaderLogo,
 } from "./styles/Header.styled";
 
+/**
+ * Este componente muestra el footer que contiene información extra de la aplicación.
+ * 
+ * @component
+ */
 export const Footer = () => {
   return (
     <section>

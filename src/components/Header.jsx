@@ -1,8 +1,11 @@
 import { BsBookHalf } from "react-icons/bs";
 import { HeaderWrap, HeaderLogo, HeaderMenuBtn } from "./styles/Header.styled";
 import { Menu } from "./Menu";
-import { Slider } from "./Slider";
 
+/**
+ * Esta función se encarga de mostrar y ocultar el menú de navegación en la versión móvil de la aplicación.
+ * 
+ */
 export const handleToggleMenu = function () {
   const btnMenu = document.querySelector(".btn-menu");
   const menu = document.querySelector(".menu");
@@ -13,6 +16,11 @@ export const handleToggleMenu = function () {
   backdrop.classList.toggle("active");
 };
 
+/**
+ * Este componente muestra el header que contiene el logo y el menú de navegación de la aplicación.
+ * 
+ * @component
+ */
 export const Header = () => {
   return (
     <HeaderWrap>

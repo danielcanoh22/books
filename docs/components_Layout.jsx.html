@@ -1,0 +1,212 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> components/Layout.jsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Books - Components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="App.html">App</a></li><li><a href="Article.html">Article</a></li><li><a href="Card.html">Card</a></li><li><a href="Cart.html">Cart</a></li><li><a href="CartCheckout.html">CartCheckout</a></li><li><a href="CartProduct.html">CartProduct</a></li><li><a href="CrudCreate.html">CrudCreate</a></li><li><a href="CrudEdit.html">CrudEdit</a></li><li><a href="CrudShow.html">CrudShow</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Form.html">Form</a></li><li><a href="Header.html">Header</a></li><li><a href="Layout.html">Layout</a></li><li><a href="Menu.html">Menu</a></li><li><a href="Slider.html">Slider</a></li></ul><h3>Global</h3><ul><li><a href="global.html#handleSmoothScrollTo">handleSmoothScrollTo</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>components/Layout.jsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
+import {
+  collection,
+  getDocs
+} from "firebase/firestore";
+import { db } from "../firebaseConfig/firebase";
+
+import { handleToggleMenu } from "../components/Header";
+import { Header } from "./Header";
+import { Slider } from "./Slider";
+import { Card } from "./Card";
+import { Article } from "./Article";
+import { Form } from "./Form";
+import { articles } from "../data";
+import { Footer } from "./Footer";
+
+/**
+ * Este componente muestra la aplicación completa, uniendo y renderizando los diferentes componentes
+ * que se crearon.
+ * 
+ * @component
+ */
+export const Layout = () => {
+  // 1. Configurar hooks
+  const [products, setProducts] = useState([]);
+
+  // 2. Referenciar a la DB firestore
+  const productsCollection = collection(db, "products");
+
+  // 3. Mostrar los docs
+  /**
+   * Esta función se encarga de tomar todos los productos que están almacenados en la base de datos y guardarlos
+   * en un arreglo, para que posteriormente se creen las tarjetas que se muestran en la sección de productos.
+   */
+  const getProducts = async () => {
+    const data = await getDocs(productsCollection);
+    setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+
+  // 6. Usar useEffect
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  return (
+    &lt;>
+      &lt;Header />
+      &lt;div className="backdrop" onClick={handleToggleMenu}>&lt;/div>
+      &lt;main className="main">
+        &lt;section id="hero">
+          &lt;Slider />
+        &lt;/section>
+        &lt;section className="section" id="products">
+          &lt;div className="container">
+            &lt;h2 className="section-title">Productos Disponibles&lt;/h2>
+            &lt;section className="products-cards">
+              {products.length > 0 ?
+                products.map((book) => (
+                &lt;Card
+                  key={book.id}
+                  image={book.image}
+                  title={book.title}
+                  author={book.author}
+                  price={Number(book.price)}
+                  id={book.id}
+                />
+              )) : &lt;h3>No hay productos disponibles 😢&lt;/h3>}
+            &lt;/section>
+          &lt;/div>
+        &lt;/section>
+        &lt;section className="section blog" id="blog">
+          &lt;h2 className="section-title">Blog&lt;/h2>
+          &lt;div className="container">
+            {articles.map((article) => (
+              &lt;Article
+                key={article.title}
+                image={article.image}
+                title={article.title}
+                description={article.description}
+              />
+            ))}
+            &lt;Form />
+          &lt;/div>
+        &lt;/section>
+      &lt;/main>
+      &lt;footer className="footer">
+        &lt;Footer/>
+      &lt;/footer>
+    &lt;/>
+  );
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

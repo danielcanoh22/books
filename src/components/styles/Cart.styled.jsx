@@ -17,7 +17,6 @@ export const CartProducts = styled.section`
 
 // Products
 export const ProductWrap = styled.article`
-  ${"" /* max-height: 200px; */}
   position: relative;
   display: flex;
   align-items: center;

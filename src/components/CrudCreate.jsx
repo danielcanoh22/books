@@ -5,8 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db, storage } from "../firebaseConfig/firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { books } from "../data";
 
+/**
+ * Este componente se encarga de mostrar el formulario que permite agregar (crear) nuevos libros a la sección de productos y a la tabla del CRUD.
+ * 
+ * @component
+ */
 export const CrudCreate = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -17,29 +21,34 @@ export const CrudCreate = () => {
 
   const productsCollection = collection(db, "products");
 
+  /**
+   * Esta función se encarga de tomar la información ingresada en el formulario, almacenarla en un objeto y subirla a la base de datos.
+   */
   const addProduct = async (e) => {
     e.preventDefault();
 
-    try {
-      if (image.name) {
-        const newRef = ref(storage, `/portadas/${image.name}`);
-        const snap = await uploadBytesResumable(newRef, image);
-
-        if (snap.state === "success") {
-          urlImage = await getDownloadURL(snap.ref);
+    if (title && author && price) {
+      try {
+        if (image.name) {
+          const newRef = ref(storage, `/portadas/${image.name}`);
+          const snap = await uploadBytesResumable(newRef, image);
+  
+          if (snap.state === "success") {
+            urlImage = await getDownloadURL(snap.ref);
+          }
         }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+  
+      await addDoc(productsCollection, {
+        title: title,
+        author: author,
+        price: price,
+        image: urlImage,
+      });
+      navigate("/");
     }
-
-    await addDoc(productsCollection, {
-      title: title,
-      author: author,
-      price: price,
-      image: urlImage,
-    });
-    navigate("/");
   };
 
   return (

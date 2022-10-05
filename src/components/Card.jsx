@@ -11,51 +11,20 @@ import {
   CardPrice,
   CardBtn,
 } from "./styles/Card.styled";
-import { books } from "../data";
 
 /**
  * Esta función se encarga de almacenar en el LocalStorage del navegador un arreglo de productos.
  */
-const setLocalStorage = function (products) {
+export const setLocalStorage = function (products) {
   localStorage.setItem("products", JSON.stringify(products));
 };
 
 /**
  * Esta función se encarga de retornar los datos almacenados en el LocalStorage del navegador.
  */
-const getLocalStorage = function () {
+export const getLocalStorage = function () {
   const data = JSON.parse(localStorage.getItem("products"));
   return data;
-};
-
-
-// setLocalStorage(products);
-
-/**
- * Esta función se encarga de tomar la información de cada producto, guardarla en un objeto y agregar dicho objeto a un arreglo de productos. Posteriormente, dicho arreglo se almacena en el LocalStorage del navegador.
- */
-const handleAddToCart = function (e) {
-  const products = getLocalStorage() || [];
-  const currentProduct = e.target.closest(".card");
-
-  const book = {
-    id: currentProduct.dataset.id,
-    title: currentProduct.querySelector(".card-title").textContent,
-    author: currentProduct.querySelector(".card-author").textContent,
-    price: currentProduct.querySelector(".card-price").textContent,
-    image: currentProduct.querySelector(".card-img").getAttribute("src"),
-    amount: 1,
-  };
-
-  const product = products.find((prod) => prod.id === book.id);
-
-  if (!product) products.push(book);
-
-  // if (product) products[products.indexOf(product)].amount++
-  // products.push(book);
-  console.log(products);
-
-  setLocalStorage(products);
 };
 
 const DEFAULT_IMAGE =
@@ -67,6 +36,29 @@ const DEFAULT_IMAGE =
  * @component
  */
 export const Card = ({ id, image = DEFAULT_IMAGE, title, author, price }) => {
+  /**
+   * Esta función se encarga de tomar la información de cada producto, guardarla en un objeto y agregar dicho objeto a un arreglo de productos. Posteriormente, dicho arreglo se almacena en el LocalStorage del navegador.
+   */
+  const handleAddToCart = function (e) {
+    const products = getLocalStorage() || [];
+    const currentProduct = e.target.closest(".card");
+
+    const book = {
+      id: currentProduct.dataset.id,
+      title: currentProduct.querySelector(".card-title").textContent,
+      author: currentProduct.querySelector(".card-author").textContent,
+      price: currentProduct.querySelector(".card-price").textContent,
+      image: currentProduct.querySelector(".card-img").getAttribute("src"),
+      amount: 1,
+    };
+
+    const product = products.find((prod) => prod.id === book.id);
+
+    if (!product) products.push(book);
+
+    setLocalStorage(products);
+  };
+
   return (
     <CardWrap className="card" data-id={id}>
       <CardImg>
@@ -85,6 +77,10 @@ export const Card = ({ id, image = DEFAULT_IMAGE, title, author, price }) => {
 };
 
 Card.propTypes = {
+  /**
+   * ID único de cada producto generado por Firebase.
+   */
+  id: PropTypes.string,
   /**
    * Portada del libro. En caso de no agregarse una portada, se utilizará una imagen por defecto.
    */

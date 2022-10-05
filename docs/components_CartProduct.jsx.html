@@ -1,0 +1,271 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> components/CartProduct.jsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Books - Components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="App.html">App</a></li><li><a href="Article.html">Article</a></li><li><a href="Card.html">Card</a></li><li><a href="Cart.html">Cart</a></li><li><a href="CartCheckout.html">CartCheckout</a></li><li><a href="CartProduct.html">CartProduct</a></li><li><a href="CrudCreate.html">CrudCreate</a></li><li><a href="CrudEdit.html">CrudEdit</a></li><li><a href="CrudShow.html">CrudShow</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Form.html">Form</a></li><li><a href="Header.html">Header</a></li><li><a href="Layout.html">Layout</a></li><li><a href="Menu.html">Menu</a></li><li><a href="Slider.html">Slider</a></li></ul><h3>Global</h3><ul><li><a href="global.html#handleSmoothScrollTo">handleSmoothScrollTo</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>components/CartProduct.jsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import PropTypes from "prop-types";
+import { useState } from "react";
+import { getLocalStorage, setLocalStorage } from "./Card";
+import { CardTitle, CardAuthor, CardPrice } from "./styles/Card.styled";
+import {
+  ProductWrap,
+  ProductImg,
+  ProductInfo,
+  ProductAmount,
+  ProductBtn,
+} from "./styles/Cart.styled";
+
+/**
+ * Este componente muestra una tarjeta que contiene toda la información del producto agregado al carrito de compras.
+ * Adicionalmente, muestra 2 botones que permiten cambiar la cantidad de productos que se desea comprar y la opción
+ * para remover un producto.
+ * 
+ * @component
+ */
+export const CartProduct = ({ id, image, title, author, price, amount }) => {
+  const [amountProd, setAmountProd] = useState(amount);
+  // let data = JSON.parse(localStorage.getItem("products")) || [];
+  let data = getLocalStorage() || [];
+
+  /**
+   * Esta función se encarga de remover un producto del carrito de compras, actualizar el arreglo de productos y guardarlo
+   * nuevamente en el LocalStorage del navegador.
+   */
+  const handleRemoveProduct = function (e) {
+    const product = e.target.closest(".cart-product");
+    const productId = product.dataset.id;
+    const totalPrice = document.querySelector(".checkout-total");
+    let price = 0;
+    // data = JSON.parse(localStorage.getItem("products")) || [];
+    data = getLocalStorage() || [];
+
+    data.splice(
+      data.findIndex((el) => el.id === productId),
+      1
+    );
+
+    e.target.closest(".cart-product").remove();
+
+    localStorage.removeItem("products");
+
+    if (data.length > 0) {
+      // localStorage.setItem("products", JSON.stringify(data));
+      setLocalStorage(data);
+      data = getLocalStorage() || [];
+      price = data.map((book) => (Number(book.price.slice(2))) * book.amount).reduce((i, j) => i + j, 0);
+
+      totalPrice.textContent = `$${price}`;
+    }
+
+    if (data.length === 0) totalPrice.textContent = `$${price}`;
+  };
+
+  /**
+   * Esta función se encarga de cambiar la cantidad de productos que se desea comprar, actualizar el precio total a pagar y guardar
+   * los datos actualizados en el LocalStorage del navegador.
+   */
+  const handleCalcPrice = function (e) {
+    data = getLocalStorage() || [];
+    const product = e.target.closest(".cart-product");
+    const productId = product.dataset.id;
+    const productPrice = Number(
+      product.querySelector(".product-price").textContent.slice(2)
+    );
+    const totalPrice = document.querySelector(".checkout-total");
+
+    if (e.target.classList.contains("btn-subtract") &amp;&amp; amountProd > 1) {
+      setAmountProd(amountProd - 1);
+
+      data[data.findIndex(el => el.id === productId)].amount--;
+
+      totalPrice.textContent = `$${
+        Number(totalPrice.textContent.slice(1)) - productPrice
+      }`;
+    }
+
+    if (e.target.classList.contains("btn-add")) {
+      setAmountProd(amountProd + 1);
+
+      data[data.findIndex(el => el.id === productId)].amount++;
+
+      totalPrice.textContent = `$${
+        Number(totalPrice.textContent.slice(1)) + productPrice
+      }`;
+    }
+
+    setLocalStorage(data);
+  };
+
+  return (
+    &lt;ProductWrap
+      className="cart-product"
+      data-id={id}
+      onClick={handleCalcPrice}
+    >
+      &lt;ProductImg>
+        &lt;img src={image}>&lt;/img>
+      &lt;/ProductImg>
+      &lt;ProductInfo>
+        &lt;div>
+          &lt;CardTitle>{title}&lt;/CardTitle>
+          &lt;CardAuthor>{author}&lt;/CardAuthor>
+          &lt;CardPrice className="product-price">{price}&lt;/CardPrice>
+        &lt;/div>
+        &lt;section>
+          &lt;ProductAmount>
+            &lt;button className="btn-subtract">-&lt;/button>
+            &lt;p className="product-amount">{amountProd}&lt;/p>
+            &lt;button className="btn-add">+&lt;/button>
+          &lt;/ProductAmount>
+          &lt;ProductBtn onClick={handleRemoveProduct}>
+            Remover Producto
+          &lt;/ProductBtn>
+        &lt;/section>
+      &lt;/ProductInfo>
+    &lt;/ProductWrap>
+  );
+};
+
+CartProduct.propTypes = {
+  /**
+   * ID único de cada producto generado por Firebase.
+   */
+  id: PropTypes.string,
+  /**
+   * Portada del libro. En caso de no agregarse una portada, se utilizará una imagen por defecto.
+   */
+  image: PropTypes.string,
+  /**
+   * Título del libro.
+   */
+  title: PropTypes.string.isRequired,
+  /**
+   * Autor del libro.
+   */
+  author: PropTypes.string.isRequired,
+  /**
+   * Precio del libro.
+   */
+  price: PropTypes.string.isRequired,
+  /**
+   * Cantidad de productos agregados al carrito.
+   */
+  amount: PropTypes.number
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

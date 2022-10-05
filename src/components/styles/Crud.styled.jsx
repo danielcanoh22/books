@@ -82,7 +82,7 @@ export const CreateLink = styled(Link)`
   font-size: 1.1rem;
 
   span {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     margin-right: 0.3rem;
   }
 
@@ -159,7 +159,6 @@ export const FormInput = styled.input`
   }
 
   &[type="file"]::file-selector-button {
-    ${"" /* width: 12rem; */}
     background-color: var(--main-font-color);
     color: #fff;
     padding: 0.5rem;

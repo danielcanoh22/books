@@ -2,6 +2,10 @@ import { MenuWrap, MenuItems, MenuItem } from "./styles/Header.styled";
 import { BsCart } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
+/**
+ * Esta función se encarga de aplicar el efecto de Desplazamiento Suave a la página, cuando se pulsa
+ * alguna de las opciones del menú.
+ */
 const handleSmoothScrollTo = function(e) {
   e.preventDefault();
 
@@ -11,6 +15,11 @@ const handleSmoothScrollTo = function(e) {
   }
 }
 
+/**
+ * Este componente muestra el menú de navegación de la aplicación.
+ * 
+ * @component
+ */
 export const Menu = () => {
   return (
     <MenuWrap className="menu" onClick={handleSmoothScrollTo}>

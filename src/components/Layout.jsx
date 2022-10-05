@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
   collection,
-  getDocs,
-  getDoc,
-  deleteDoc,
-  doc,
+  getDocs
 } from "firebase/firestore";
-import Swal from "sweetalert2";
 import { db } from "../firebaseConfig/firebase";
 
 import { handleToggleMenu } from "../components/Header";
-import { BsSearch } from "react-icons/bs";
 import { Header } from "./Header";
 import { Slider } from "./Slider";
 import { Card } from "./Card";
@@ -19,6 +14,12 @@ import { Form } from "./Form";
 import { articles } from "../data";
 import { Footer } from "./Footer";
 
+/**
+ * Este componente muestra la aplicación completa, uniendo y renderizando los diferentes componentes
+ * que se crearon.
+ * 
+ * @component
+ */
 export const Layout = () => {
   // 1. Configurar hooks
   const [products, setProducts] = useState([]);
@@ -27,6 +28,10 @@ export const Layout = () => {
   const productsCollection = collection(db, "products");
 
   // 3. Mostrar los docs
+  /**
+   * Esta función se encarga de tomar todos los productos que están almacenados en la base de datos y guardarlos
+   * en un arreglo, para que posteriormente se creen las tarjetas que se muestran en la sección de productos.
+   */
   const getProducts = async () => {
     const data = await getDocs(productsCollection);
     setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
@@ -48,12 +53,6 @@ export const Layout = () => {
         <section className="section" id="products">
           <div className="container">
             <h2 className="section-title">Productos Disponibles</h2>
-            {/* <form className="form-search">
-              <div>
-                <BsSearch />
-              </div>
-              <input type="search" placeholder="Buscar libro..."></input>
-            </form> */}
             <section className="products-cards">
               {products.length > 0 ?
                 products.map((book) => (

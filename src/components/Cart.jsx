@@ -1,37 +1,19 @@
 import React from "react";
-import { useState } from "react";
-import { BsBookHalf } from "react-icons/bs";
-import { Link } from "react-router-dom";
-import { books } from "../data";
-import { Card } from "./Card";
+import { getLocalStorage } from "./Card";
 import { CartCheckout } from "./CartCheckout";
 import { CartProduct } from "./CartProduct";
-import { Header } from "./Header";
 import { CartTitle, CartProducts } from "./styles/Cart.styled";
 import { BackLink, CrudWrap as CartWrap } from "./styles/Crud.styled";
 
+/**
+ * Este componente muestra la sección del carrito de compras con todos los productos agregados.
+ *
+ * @component
+ */
 export const Cart = () => {
-  const data = JSON.parse(localStorage.getItem("products")) || [];
-  const [total, setTotal] = useState(0);
-
-  // console.log(data[0].price.slice(2))
-  // if (data.length > 0) {
-  //   data.forEach((el) => {
-  //     setTotal(total + Number(el.price.slice(2)));
-  //   });
-  // }
-
-  // data.forEach((el) => {
-  //   const product = products.find((prod) => prod.id === el.id);
-
-  //   if (!product) products.push(el);
-
-  //   if (product) {
-  //     products[products.indexOf(product)].amount++;
-  //   }
-  // });
-
-  // console.log(products);
+  // const data = JSON.parse(localStorage.getItem("products")) || [];
+  const data = getLocalStorage() || [];
+  const total = data.map((book) => (Number(book.price.slice(2))) * book.amount).reduce((i, j) => i + j, 0);
 
   return (
     <CartWrap className="cart">

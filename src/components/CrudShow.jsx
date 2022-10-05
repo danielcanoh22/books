@@ -2,17 +2,22 @@ import React, { useState, useEffect } from "react";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { CrudWrap, BackLink, EditLink, CreateLink, CrudTable, CrudRow, CrudHeader, CrudColumn, CrudBtn } from "./styles/Crud.styled";
 
-import { Link } from "react-router-dom";
 import {
   collection,
   getDocs,
-  getDoc,
   deleteDoc,
   doc,
 } from "firebase/firestore";
+
 import Swal from "sweetalert2";
 import { db } from "../firebaseConfig/firebase";
 
+/**
+ * Este componente se encarga de mostrar la tabla que contiene toda la información de los productos que se han agregado.
+ * Adicionalmente, muestra diferentes botones que permiten Crear, Editar y Eliminar un producto.
+ * 
+ * @component
+ */
 export const CrudShow = () => {
   // 1. Configurar hooks
   const [products, setProducts] = useState([]);
@@ -21,12 +26,19 @@ export const CrudShow = () => {
   const productsCollection = collection(db, "products");
 
   // 3. Mostrar los docs
+  /**
+   * Esta función se encarga de tomar todos los productos que están almacenados en la base de datos y guardarlos
+   * en un arreglo.
+   */
   const getProducts = async () => {
     const data = await getDocs(productsCollection);
     setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
 
   // 4. Función para eliminar un doc
+  /**
+   * Esta función se encarga de eliminar un producto en específico, seleccionándolo por medio de su ID único.
+   */
   const deleteProduct = async (id) => {
     const productDoc = doc(db, "products", id);
     await deleteDoc(productDoc);
@@ -34,6 +46,9 @@ export const CrudShow = () => {
   };
 
   // 5. Función de confirmación Sweet Alert 2
+  /**
+   * Esta función se encarga de mostrar una ventana de confirmación cuando se desea eliminar un producto.
+   */
   const confirmDelete = (id) => {
     Swal.fire({
       title: "¿Desea eliminar el producto?",

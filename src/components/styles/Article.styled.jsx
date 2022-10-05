@@ -4,7 +4,6 @@ export const ArticleWrap = styled.article`
   display: flex;
   flex-direction: column;
   width: 45%;
-  ${"" /* border: 2px solid red; */}
   border-radius: 0.5rem;
   overflow: hidden;
   margin: 0.8rem;

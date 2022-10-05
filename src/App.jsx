@@ -1,11 +1,17 @@
 import React from "react";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Cart } from "./components/Cart";
 import { CrudCreate } from "./components/CrudCreate";
 import { CrudEdit } from "./components/CrudEdit";
 import { CrudShow } from "./components/CrudShow";
 import { Layout } from "./components/Layout";
 
+/**
+ * Este componente se encarga de crear todas las rutas a las diferentes secciónes de la aplicación, para que
+ * posteriormente se renderice la página completa.
+ * 
+ * @component
+ */
 export const App = () => {
   return (
     <BrowserRouter>

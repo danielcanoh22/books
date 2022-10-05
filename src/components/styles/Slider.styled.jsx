@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-import slide1 from "../../assets/images/slide1.png"
+import slide1 from "../../assets/images/slide1.png";
 import slide2 from "../../assets/images/slide2.png";
 import slide3 from "../../assets/images/slide3.png";
 
@@ -39,6 +39,7 @@ const sliderAnimation = keyframes`
 
 export const SliderImg = styled.article`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -47,7 +48,35 @@ export const SliderImg = styled.article`
   background-image: url(${slide1});
   background-size: cover;
   background-position: center;
-  filter: grayscale(70%);
+  filter: grayscale(75%);
 
   animation: ${sliderAnimation} 20s 3s infinite;
+`;
+
+export const SliderTitle = styled.h1`
+  font-size: 6vw;
+  color: #fff;
+  text-align: center;
+
+  @media screen and (max-width: 48em) {
+    font-size: 10vw;
+  }
+
+  @media screen and (max-width: 34em) {
+    font-size: 10vw;
+  }
+`;
+
+export const SliderSubtitle = styled.h2`
+  font-size: 3vw;
+  color: #fff;
+  text-align: center;
+
+  @media screen and (max-width: 48em) {
+    font-size: 5vw;
+  }
+
+  @media screen and (max-width: 34em) {
+    font-size: 5vw;
+  }
 `;
