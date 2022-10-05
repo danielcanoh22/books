@@ -1,6 +1,7 @@
 import { BsBookHalf } from "react-icons/bs";
 import { HeaderWrap, HeaderLogo, HeaderMenuBtn } from "./styles/Header.styled";
 import { Menu } from "./Menu";
+import { Container } from "./styles/Global.styled";
 
 /**
  * Esta función se encarga de mostrar y ocultar el menú de navegación en la versión móvil de la aplicación.
@@ -24,7 +25,7 @@ export const handleToggleMenu = function () {
 export const Header = () => {
   return (
     <HeaderWrap>
-      <div className="container">
+      <Container className="container">
         <HeaderLogo>
           <BsBookHalf className="logo-icon" /> Books
         </HeaderLogo>
@@ -32,7 +33,7 @@ export const Header = () => {
           <span></span>
         </HeaderMenuBtn>
         <Menu />
-      </div>
+      </Container>
     </HeaderWrap>
   );
 };

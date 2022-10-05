@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Backdrop, Container, FooterWrap, ProductsWrap, Section } from "./styles/Global.styled";
+
 import {
   collection,
   getDocs
@@ -45,15 +47,15 @@ export const Layout = () => {
   return (
     <>
       <Header />
-      <div className="backdrop" onClick={handleToggleMenu}></div>
+      <Backdrop className="backdrop" onClick={handleToggleMenu}></Backdrop>
       <main className="main">
         <section id="hero">
           <Slider />
         </section>
-        <section className="section" id="products">
-          <div className="container">
+        <Section id="products">
+          <Container className="container">
             <h2 className="section-title">Productos Disponibles</h2>
-            <section className="products-cards">
+            <ProductsWrap>
               {products.length > 0 ?
                 products.map((book) => (
                 <Card
@@ -65,12 +67,12 @@ export const Layout = () => {
                   id={book.id}
                 />
               )) : <h3>No hay productos disponibles 😢</h3>}
-            </section>
-          </div>
-        </section>
-        <section className="section blog" id="blog">
+            </ProductsWrap>
+          </Container>
+        </Section>
+        <Section className="blog" id="blog">
           <h2 className="section-title">Blog</h2>
-          <div className="container">
+          <Container className="container">
             {articles.map((article) => (
               <Article
                 key={article.title}
@@ -80,12 +82,12 @@ export const Layout = () => {
               />
             ))}
             <Form />
-          </div>
-        </section>
+          </Container>
+        </Section>
       </main>
-      <footer className="footer">
+      <FooterWrap>
         <Footer/>
-      </footer>
+      </FooterWrap>
     </>
   );
 };

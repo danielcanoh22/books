@@ -18,22 +18,22 @@ export const Footer = () => {
       <MenuWrap className="footer-menu" onClick={(e) => e.preventDefault()}>
         <MenuItems>
           <MenuItem>
-            <a href="#" className="nav-link nav-link-footer">
+            <a href="#" className="nav-link">
               Acerca de
             </a>
           </MenuItem>
           <MenuItem>
-            <a href="#" className="nav-link nav-link-footer">
+            <a href="#" className="nav-link">
               Términos y Condiciones
             </a>
           </MenuItem>
           <MenuItem>
-            <a href="#" className="nav-link nav-link-footer">
+            <a href="#" className="nav-link">
               Política de Privacidad
             </a>
           </MenuItem>
           <MenuItem>
-            <a href="#" className="nav-link nav-link-footer">
+            <a href="#" className="nav-link">
               Contacto
             </a>
           </MenuItem>
