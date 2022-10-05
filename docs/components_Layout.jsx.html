@@ -90,6 +90,8 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
+import { Backdrop, Container, FooterWrap, ProductsWrap, Section } from "./styles/Global.styled";
+
 import {
   collection,
   getDocs
@@ -136,15 +138,15 @@ export const Layout = () => {
   return (
     &lt;>
       &lt;Header />
-      &lt;div className="backdrop" onClick={handleToggleMenu}>&lt;/div>
+      &lt;Backdrop className="backdrop" onClick={handleToggleMenu}>&lt;/Backdrop>
       &lt;main className="main">
         &lt;section id="hero">
           &lt;Slider />
         &lt;/section>
-        &lt;section className="section" id="products">
-          &lt;div className="container">
+        &lt;Section id="products">
+          &lt;Container className="container">
             &lt;h2 className="section-title">Productos Disponibles&lt;/h2>
-            &lt;section className="products-cards">
+            &lt;ProductsWrap>
               {products.length > 0 ?
                 products.map((book) => (
                 &lt;Card
@@ -156,12 +158,12 @@ export const Layout = () => {
                   id={book.id}
                 />
               )) : &lt;h3>No hay productos disponibles 😢&lt;/h3>}
-            &lt;/section>
-          &lt;/div>
-        &lt;/section>
-        &lt;section className="section blog" id="blog">
+            &lt;/ProductsWrap>
+          &lt;/Container>
+        &lt;/Section>
+        &lt;Section className="blog" id="blog">
           &lt;h2 className="section-title">Blog&lt;/h2>
-          &lt;div className="container">
+          &lt;Container className="container">
             {articles.map((article) => (
               &lt;Article
                 key={article.title}
@@ -171,12 +173,12 @@ export const Layout = () => {
               />
             ))}
             &lt;Form />
-          &lt;/div>
-        &lt;/section>
+          &lt;/Container>
+        &lt;/Section>
       &lt;/main>
-      &lt;footer className="footer">
+      &lt;FooterWrap>
         &lt;Footer/>
-      &lt;/footer>
+      &lt;/FooterWrap>
     &lt;/>
   );
 };
