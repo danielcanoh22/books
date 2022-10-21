@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { CreateWrap, FormContainer, FormLabel, FormInput, BackLink, FormBtn } from "./styles/Crud.styled";
+import {
+  CreateWrap,
+  FormContainer,
+  FormLabel,
+  FormInput,
+  BackLink,
+  FormBtn,
+} from "./styles/Crud.styled";
 
 import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
@@ -8,7 +15,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 /**
  * Este componente se encarga de mostrar el formulario que permite agregar (crear) nuevos libros a la sección de productos y a la tabla del CRUD.
- * 
+ *
  * @component
  */
 export const CrudCreate = () => {
@@ -17,7 +24,8 @@ export const CrudCreate = () => {
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const navigate = useNavigate();
-  let urlImage = "https://firebasestorage.googleapis.com/v0/b/books-tecnicas.appspot.com/o/portadas%2Fportada-default.png?alt=media&token=77853867-e7b5-4e7e-92b6-e3ecb27c0b0a";
+  let urlImage =
+    "https://firebasestorage.googleapis.com/v0/b/books-tecnicas.appspot.com/o/portadas%2Fportada-default.png?alt=media&token=77853867-e7b5-4e7e-92b6-e3ecb27c0b0a";
 
   const productsCollection = collection(db, "products");
 
@@ -32,7 +40,7 @@ export const CrudCreate = () => {
         if (image.name) {
           const newRef = ref(storage, `/portadas/${image.name}`);
           const snap = await uploadBytesResumable(newRef, image);
-  
+
           if (snap.state === "success") {
             urlImage = await getDownloadURL(snap.ref);
           }
@@ -40,7 +48,7 @@ export const CrudCreate = () => {
       } catch (error) {
         console.log(error);
       }
-  
+
       await addDoc(productsCollection, {
         title: title,
         author: author,
@@ -76,6 +84,7 @@ export const CrudCreate = () => {
         <FormLabel>Portada</FormLabel>
         <FormInput
           type="file"
+          accept="image/png, image/jpeg, image/jpg"
           onChange={(e) => setImage(e.target.files[0])}
         ></FormInput>
         <div className="btns">

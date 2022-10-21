@@ -97,18 +97,18 @@ import { Link } from "react-router-dom";
  * Esta función se encarga de aplicar el efecto de Desplazamiento Suave a la página, cuando se pulsa
  * alguna de las opciones del menú.
  */
-const handleSmoothScrollTo = function(e) {
+const handleSmoothScrollTo = function (e) {
   e.preventDefault();
 
-  if (e.target.classList.contains('nav-link')) {
-    const id = e.target.getAttribute('href');
-    document.querySelector(id).scrollIntoView({behavior: 'smooth'});
+  if (e.target.classList.contains("nav-link")) {
+    const id = e.target.getAttribute("href");
+    document.querySelector(id).scrollIntoView({ behavior: "smooth" });
   }
-}
+};
 
 /**
  * Este componente muestra el menú de navegación de la aplicación.
- * 
+ *
  * @component
  */
 export const Menu = () => {
@@ -116,20 +116,26 @@ export const Menu = () => {
     &lt;MenuWrap className="menu" onClick={handleSmoothScrollTo}>
       &lt;MenuItems>
         &lt;MenuItem>
-          &lt;a href="#hero" className="nav-link">Inicio&lt;/a>
+          &lt;a href="#hero" className="nav-link">
+            Inicio
+          &lt;/a>
         &lt;/MenuItem>
         &lt;MenuItem>
-          &lt;a href="#products" className="nav-link">Productos&lt;/a>
+          &lt;a href="#products" className="nav-link">
+            Productos
+          &lt;/a>
         &lt;/MenuItem>
         &lt;MenuItem>
-          &lt;a href="#blog" className="nav-link">Blog&lt;/a>
+          &lt;a href="#blog" className="nav-link">
+            Blog
+          &lt;/a>
         &lt;/MenuItem>
         &lt;MenuItem>
-          &lt;Link to='/crud'>Admin&lt;/Link>
+          &lt;Link to="/crud">Admin&lt;/Link>
         &lt;/MenuItem>
         &lt;MenuItem className="cart">
-          &lt;Link to='/cart'>
-          &lt;BsCart />
+          &lt;Link to="/cart">
+            &lt;BsCart />
           &lt;/Link>
         &lt;/MenuItem>
       &lt;/MenuItems>

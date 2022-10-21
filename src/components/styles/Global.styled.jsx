@@ -16,8 +16,12 @@ export const Section = styled.section`
     font-size: 2rem;
     color: var(--dark-gray-color);
     margin-bottom: 2rem;
-    border-top: 2px solid var(--main-font-color);
+    ${'' /* border-top: 2px solid var(--main-font-color); */}
     border-bottom: 2px solid var(--main-font-color);
+
+    @media screen and (max-width: 34em) {
+      font-size: 1.5rem;
+    }
   }
 
   .container {
@@ -37,6 +41,29 @@ export const Section = styled.section`
     padding-bottom: 18rem;
   }
 `;
+
+export const Search = styled.article`
+  display: flex;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 385px;
+  height: 2rem;
+
+  input {
+    width: 100%;
+    padding: 0.2rem;
+    font-size: 1rem;
+    border: 1px solid var(--light-gray-color);
+    border-right: none;
+    outline: none;
+  }
+
+  div {
+    background-color: var(--main-font-color);
+    color: white;
+    padding: 0.5rem;
+  }
+`
 
 export const ProductsWrap = styled.section`
   display: flex;

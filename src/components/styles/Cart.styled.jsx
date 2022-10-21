@@ -13,6 +13,15 @@ export const CartProducts = styled.section`
   .products-list {
     width: 70%;
   }
+
+  @media screen and (max-width: 48em) {
+    flex-direction: column;
+    align-items: center;
+
+    .products-list {
+      width: 100%;
+    }
+  }
 `
 
 // Products
@@ -25,6 +34,8 @@ export const ProductWrap = styled.article`
   margin: 0.2rem 0;
   border: 1px solid var(--very-light-gray-color);
   overflow: hidden;
+
+  
 `;
 
 export const ProductImg = styled.figure`
@@ -86,6 +97,7 @@ export const ProductBtn = styled.button`
 // Checkout
 export const CheckoutWrap = styled.article`
   padding: 0.5rem;
+  max-width: 252px;
 
   h3 {
     font-size: 1rem;
@@ -113,6 +125,7 @@ export const CheckoutBtn = styled.button`
     background-color: var(--main-color-hover);
   }
 `;
+
 export const CheckoutCoupon = styled.section`
   border-top: 1px solid var(--very-light-gray-color);
   margin-top: 0.6rem;

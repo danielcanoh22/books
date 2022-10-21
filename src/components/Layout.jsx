@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Backdrop, Container, FooterWrap, ProductsWrap, Section } from "./styles/Global.styled";
-
 import {
-  collection,
-  getDocs
-} from "firebase/firestore";
+  Backdrop,
+  Container,
+  FooterWrap,
+  ProductsWrap,
+  Section,
+  Search,
+} from "./styles/Global.styled";
+import { BsSearch } from "react-icons/bs";
+
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebaseConfig/firebase";
 
 import { handleToggleMenu } from "../components/Header";
@@ -19,12 +24,34 @@ import { Footer } from "./Footer";
 /**
  * Este componente muestra la aplicación completa, uniendo y renderizando los diferentes componentes
  * que se crearon.
- * 
+ *
  * @component
  */
 export const Layout = () => {
   // 1. Configurar hooks
   const [products, setProducts] = useState([]);
+  const [productsList, setProductsList] = useState([]);
+  const [search, setSearch] = useState("");
+
+  /**
+   * Esta función se encarga de devolver el producto especificado en la barra de búsqueda, en caso de que exista.
+   */
+  const filterProduct = (term) => {
+    const result = productsList.filter((el) => {
+      if (el.title.toLowerCase().includes(term.toLowerCase())) {
+        return el;
+      }
+    });
+    setProducts(result);
+  };
+
+  /**
+   * Esta función se encarga de tomar lo que se escribe en la barra de búsqueda para posteriormente filtrar los productos.
+   */
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    filterProduct(e.target.value);
+  };
 
   // 2. Referenciar a la DB firestore
   const productsCollection = collection(db, "products");
@@ -37,6 +64,7 @@ export const Layout = () => {
   const getProducts = async () => {
     const data = await getDocs(productsCollection);
     setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    setProductsList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
 
   // 6. Usar useEffect
@@ -55,18 +83,32 @@ export const Layout = () => {
         <Section id="products">
           <Container className="container">
             <h2 className="section-title">Productos Disponibles</h2>
+            <Search>
+              <input
+                type="search"
+                value={search}
+                placeholder="Buscar..."
+                onChange={handleSearch}
+              />
+              <div>
+                <BsSearch />
+              </div>
+            </Search>
             <ProductsWrap>
-              {products.length > 0 ?
+              {products.length > 0 ? (
                 products.map((book) => (
-                <Card
-                  key={book.id}
-                  image={book.image}
-                  title={book.title}
-                  author={book.author}
-                  price={Number(book.price)}
-                  id={book.id}
-                />
-              )) : <h3>No hay productos disponibles 😢</h3>}
+                  <Card
+                    key={book.id}
+                    image={book.image}
+                    title={book.title}
+                    author={book.author}
+                    price={Number(book.price)}
+                    id={book.id}
+                  />
+                ))
+              ) : (
+                <h3>No hay productos disponibles 😢</h3>
+              )}
             </ProductsWrap>
           </Container>
         </Section>
@@ -86,7 +128,7 @@ export const Layout = () => {
         </Section>
       </main>
       <FooterWrap>
-        <Footer/>
+        <Footer />
       </FooterWrap>
     </>
   );
